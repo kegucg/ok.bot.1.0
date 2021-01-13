@@ -1,0 +1,45 @@
+from selenium import webdriver
+import pickle
+import time
+from random import randint
+import random
+
+
+class VkBot():
+    def __init__(self):
+        self.browser = webdriver.Chrome('C:\\Users\\9\\PycharmProjects\\Bot_Rabo4ii\\chrmedriver\\chromedriver.exe')
+
+    def login(self):
+        browser = self.browser
+
+        browser.get('https://vk.com/')
+        for cookie in pickle.load(open('session_vkcom', 'rb')):
+            browser.add_cookie(cookie)
+        browser.refresh()
+
+    def pere(self):
+        browser = self.browser
+        browser.get('https://vk.com/im?sel=-125438636')
+
+        time.sleep(3)
+        browser.find_element_by_xpath('//*[@id="_im_keyboard_container"]/div/div/div[1]/div[1]/div/div[1]/div/div[2]/div/button').click()
+
+        while True:
+            if randint(0,1) == 0:
+                time.sleep(2)
+                browser.find_element_by_xpath('//*[@id="_im_keyboard_container"]/div/div/div[1]/div[1]/div/div[1]/div/div[1]/div[2]/button/span').click()
+                if randint(2,3) == 2:
+                    time.sleep(2)
+                    browser.find_element_by_xpath('//*[@id="_im_keyboard_container"]/div/div/div[1]/div[1]/div/div[1]/div/div[1]/div[1]/button/span').click()
+
+                    time.sleep(3)
+                    browser.find_element_by_xpath('//*[@id="_im_keyboard_container"]/div/div/div[1]/div[1]/div/div[1]/div/div[3]/div/button').click()
+                    time.sleep(random.randrange(3600,3700))
+                else:
+                    time.sleep(3)
+#//*[@id="_im_keyboard_container"]/div/div/div[1]/div[1]/div/div[1]/div/div[2]/div/button
+
+
+bot = VkBot()
+bot.login()
+bot.pere()
